@@ -32,7 +32,7 @@ def flatten_json(data, parent_key='', sep='.'):
 # --- Fetch Data from DB ---
 def fetch_data_from_db(state_id=3):
     conn = psycopg2.connect(
-        dbname="Inventory",
+        dbname="YouDB",
         user="postgres",
         password="",
         host="127.0.0.1",
@@ -41,7 +41,7 @@ def fetch_data_from_db(state_id=3):
     cur = conn.cursor()
 
     # Select multiple JSON columns
-    cur.execute ("SELECT s.buildings, s.equipments, s.electricals, s.physical_condition, s.installation_rooms, s.information_sheets FROM surveys s JOIN gram_panchayats gp ON gp.id = s.gp_id JOIN districts d ON d.id = gp.district_id JOIN states st ON st.id = d.state_id WHERE s.status = 3 AND st.id = 4;")
+    cur.execute ("Your SQL Query here")
     
     rows = cur.fetchall()
     colnames = [desc[0] for desc in cur.description]  # get column names
@@ -69,18 +69,18 @@ def fetch_data_from_db(state_id=3):
 def db_test():
     try:
         conn = psycopg2.connect(
-            dbname="Inventory",
+            dbname="YouDB",
             user="postgres",
             password="",
             host="127.0.0.1",
             port="5432"
         )
         cur = conn.cursor()
-        cur.execute("SELECT COUNT(*) FROM surveys;")
+        cur.execute("SELECT (*) FROM Table;")
         count = cur.fetchone()[0]
         cur.close()
         conn.close()
-        return f"DB connected successfully! Number of rows in surveys: {count}"
+        return f"DB connected successfully! Number of rows in Table: {count}"
     except Exception as e:
         return f"Error connecting to DB: {e}"
 
@@ -118,7 +118,7 @@ def download_excel():
 
     wb = Workbook()
     ws = wb.active
-    ws.title = "SurveyDetails"
+    ws.title = "Data"
 
     col_offset = 1
     block_names = list(set().union(*(record.keys() for record in data)))
@@ -140,7 +140,7 @@ def download_excel():
         # Exclude unwanted keys
         all_keys = [k for k in all_keys if not (
             k.lower().endswith("_img") or 
-            k.lower() in ["energymeter_img", "powerbackup_img", "app_data", "no_of_ups"]
+            k.lower() in ["_img", "_img", "app_data", ""]
         )]
 
         # Write sub-headers (keys)
@@ -187,7 +187,7 @@ def download_excel():
         adjusted_width = (max_length + 2)
         ws.column_dimensions[col_letter].width = adjusted_width
 
-    file_path = "survey_blocks_horizontal.xlsx"
+    file_path = "subject.xlsx"
     wb.save(file_path)
     return send_file(file_path, as_attachment=True)
 
