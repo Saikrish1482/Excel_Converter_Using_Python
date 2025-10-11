@@ -1,6 +1,6 @@
-# Excel Convertor
+# Excel_Converter_Using_Python
 
-A Flask web application that converts PostgreSQL survey data to Excel format with JSON flattening.
+A Flask web application that converts PostgreSQL survey data to Excel format with JSON flattening. This is a Simple Excel Converter with a small Webpage button, connected with my local DB from that it fetches the JSON data and show it in the Excel based the Query we write in the code.
 
 ## Features
 - Connects to PostgreSQL database
@@ -23,6 +23,5 @@ pip install flask psycopg2-binary openpyxl pandas
 4. Click "Download Overall Excel" to export data
 
 ## Database Requirements
-- PostgreSQL database named "*****"
-- Tables: what are all there 
-- JSON columns: what are all in DB
+- PostgreSQL database (configure connection details in app.py)
+- JSON columns for data processing
