@@ -33,10 +33,10 @@ def flatten_json(data, parent_key='', sep='.'):
 def fetch_data_from_db(state_id=3):
     conn = psycopg2.connect(
         dbname="YouDB",
-        user="postgres",
+        user="",
         password="",
-        host="127.0.0.1",
-        port="5432"
+        host="0.0.0.0",
+        port="0000"
     )
     cur = conn.cursor()
 
@@ -70,10 +70,10 @@ def db_test():
     try:
         conn = psycopg2.connect(
             dbname="YouDB",
-            user="postgres",
+            user="",
             password="",
-            host="127.0.0.1",
-            port="5432"
+            host="0.0.0.0",
+            port="0000"
         )
         cur = conn.cursor()
         cur.execute("SELECT (*) FROM Table;")
@@ -193,4 +193,4 @@ def download_excel():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=0000, debug=True)
